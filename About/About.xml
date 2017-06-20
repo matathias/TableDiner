@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Table Diner Configurable</name>
+  <author>Antaios</author>
+  <targetVersion>0.17.0</targetVersion>
+  <description>A mod which adds an options to the menu which control table eating distance.</description>
+</ModMetaData>

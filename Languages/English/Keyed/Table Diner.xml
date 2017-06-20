@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <TDiner.TableDiner>Table Diner</TDiner.TableDiner>
+  <TDiner.TableSearchDist>Table Search Distance:</TDiner.TableSearchDist>
+  <TDiner.overwriteNonDefault>Overwrite non-default search distances</TDiner.overwriteNonDefault>
+  <TDiner.ApplyChanges>Apply Changes</TDiner.ApplyChanges>
+  <TDiner.displayRing>Display range ring for tables</TDiner.displayRing>
+  <TDiner.RadiusNote>Note: The radius displayed from tables is not exact. When pawns search for a place to eat, they search for chairs, not tables. Therefore there may be a few tiles difference between the displayed circle and actual results.</TDiner.RadiusNote>
+  <TDiner.VDefault>Set to Rimworld default value</TDiner.VDefault>
+  <TDiner.TDDefault>Set to Table Diner default value</TDiner.TDDefault>
+  <TDiner.Set>Set</TDiner.Set>
+</LanguageData>
