@@ -2,6 +2,9 @@
 <ModMetaData>
   <name>Table Diner Configurable</name>
   <author>Antaios</author>
-  <targetVersion>0.17.0</targetVersion>
-  <description>A mod which adds an options to the menu which control table eating distance.</description>
+  <targetVersion>0.18.1722</targetVersion>
+  <description>A mod which adds an options to the menu which control table eating distance.
+  
+  Version B18_1.0.1
+  </description>
 </ModMetaData>
