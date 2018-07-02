@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Table Diner Configurable", "Table Diner Configurable.csproj", "{7FD44DED-1ACE-42FB-A084-9A86D60E432A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Table Diner", "Table Diner.csproj", "{7FD44DED-1ACE-42FB-A084-9A86D60E432A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

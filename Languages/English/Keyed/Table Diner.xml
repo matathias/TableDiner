@@ -9,4 +9,9 @@
   <TDiner.VDefault>Set to Rimworld default value</TDiner.VDefault>
   <TDiner.TDDefault>Set to Table Diner default value</TDiner.TDDefault>
   <TDiner.Set>Set</TDiner.Set>
+  <TDiner.TabTable>Table</TDiner.TabTable>
+  <TDiner.TRSlideLabel>Table Radius</TDiner.TRSlideLabel>
+  <TDiner.ExtraFeatures>Use Table and Pawn specific radii</TDiner.ExtraFeatures>
+  <TDiner.Ignored>Ignored</TDiner.Ignored>
+  <TDiner.ExtraDisabled>Feature Disabled. Restart Rimworld to remove tab.</TDiner.ExtraDisabled>
 </LanguageData>
