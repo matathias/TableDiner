@@ -107,17 +107,12 @@ namespace Table_Diner_Configurable
 			{
 				return;
 			}
-			Log.Message("StartExpose");
 			if (__instance.IsColonist)
 			{
-				Log.Message("Expose2");
 				float td = TableDinerGlobal.GetTableRadius(__instance.ThingID);
-				Log.Message("Expose3");
 				Scribe_Values.Look(ref td, "TableDiner_TableDistance", 0);
-				Log.Message("Expose4");
 				TableDinerGlobal.tableRadii[__instance.ThingID] = td;
 			}
-			Log.Message("Expose5");
 		}
 	}
 
