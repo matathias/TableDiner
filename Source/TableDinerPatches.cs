@@ -125,10 +125,8 @@ namespace Table_Diner_Configurable
 		[HarmonyPostfix]
 		public static void _Postfix(ITab_Pawn_Needs __instance)
 		{
-			if (!TableDiner.settings.useExtraFeatures)
-			{
-				return;
-			}
+			if (Find.CurrentMap == null) return;
+			if (!TableDiner.settings.useExtraFeatures) return;
 			Pawn SelPawn = Find.Selector.SingleSelectedThing as Pawn;
 			if (SelPawn != null && SelPawn.IsColonist)
 			{
@@ -159,6 +157,7 @@ namespace Table_Diner_Configurable
 		[HarmonyPostfix]
 		public static void __Postfix(ITab_Pawn_Needs __instance)
 		{
+			if (Find.CurrentMap == null) return;
 			if (!TableDiner.settings.displayRing) return;
 			Pawn SelPawn = Find.Selector.SingleSelectedThing as Pawn;
 			if (SelPawn != null && SelPawn.IsColonist && FillTab.mOver)
