@@ -2,9 +2,13 @@
 <ModMetaData>
   <name>Table Diner</name>
   <author>Antaios</author>
-	<targetVersion>1.0.2059</targetVersion>
+  <supportedVersions>
+      <li>1.0</li>
+      <li>1.1</li>
+  </supportedVersions>
+  <packageId>antaioz.tdiner</packageId>
   <description>A mod which adds options to control table eating distances.
   
-  Version 1.32
+  Version 1.33
   </description>
 </ModMetaData>

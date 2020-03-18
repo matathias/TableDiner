@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Verse;
-using Harmony;
+using HarmonyLib;
 using System.Reflection;
 
 namespace Table_Diner_Configurable
@@ -19,10 +19,10 @@ namespace Table_Diner_Configurable
 
 		static TableDinerGlobal()
 		{
-			var harmony = HarmonyInstance.Create("TableDiner");
-			harmony.PatchAll(Assembly.GetExecutingAssembly());
+			var harmony = new Harmony("TableDiner");
 
-			localRandom = new System.Random();
+            harmony.PatchAll(Assembly.GetExecutingAssembly());
+            localRandom = new System.Random();
 
 			circleMaterial = SolidColorMaterials.SimpleSolidColorMaterial(Color.white, true);
 			circleMaterialBP = SolidColorMaterials.SimpleSolidColorMaterial(Color.Lerp(Color.white, Color.blue, 0.3f), true);

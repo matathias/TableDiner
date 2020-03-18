@@ -2,7 +2,7 @@
 using UnityEngine;
 using RimWorld;
 using Verse;
-using Harmony;
+using HarmonyLib;
 using Verse.AI;
 
 namespace Table_Diner_Configurable
@@ -144,19 +144,21 @@ namespace Table_Diner_Configurable
 					Widgets.DrawHighlight(tabRectBig);
 					mOver = true;
 				}
-				TableDinerGlobal.tableRadii[SelPawn.ThingID] = Mathf.Pow(Widgets.HorizontalSlider(tabRect, Mathf.Sqrt(tr), 0, 23, true, tr < 1 ? "TDiner.Ignored".Translate() : Mathf.Round(tr).ToString(), "TDiner.TRSlideLabel".Translate()), 2);
+				TableDinerGlobal.tableRadii[SelPawn.ThingID] = Mathf.Pow(Widgets.HorizontalSlider(tabRect, Mathf.Sqrt(tr), 0, 23, true, tr < 1 ? "TDiner.Ignored".Translate().ToString() : Mathf.Round(tr).ToString(), "TDiner.TRSlideLabel".Translate()), 2);
 				GUI.color = Color.white;
 			}
 		}
 	}
 
+
 	//circle overlay for pawns
-	[HarmonyPatch(typeof(RimWorld.ITab_Pawn_Needs), "TabUpdate")]
+	[HarmonyPatch(typeof(Verse.InspectTabBase), "TabUpdate")]
 	public static class TabUpdate
 	{
 		[HarmonyPostfix]
 		public static void __Postfix(ITab_Pawn_Needs __instance)
 		{
+            if (!(__instance is RimWorld.ITab_Pawn_Needs)) return;
 			if (Find.CurrentMap == null) return;
 			if (!TableDiner.settings.displayRing) return;
 			Pawn SelPawn = Find.Selector.SingleSelectedThing as Pawn;

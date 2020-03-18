@@ -35,7 +35,7 @@ namespace Table_Diner_Configurable
 			{
 				Widgets.DrawHighlight(tabRectBig);
 			}
-			TableDinerGlobal.tableRadii[SelThing.ThingID] = Mathf.Pow(Widgets.HorizontalSlider(tabRect, Mathf.Sqrt(tr), 0, 23, true, tr < 1 ? "TDiner.Ignored".Translate() : Mathf.Round(tr).ToString(), "TDiner.TRSlideLabel".Translate()), 2);
+			TableDinerGlobal.tableRadii[SelThing.ThingID] = Mathf.Pow(Widgets.HorizontalSlider(tabRect, Mathf.Sqrt(tr), 0, 23, true, tr < 1 ? "TDiner.Ignored".Translate().ToString() : Mathf.Round(tr).ToString(), "TDiner.TRSlideLabel".Translate()), 2);
 			GUI.color = Color.white;
 		}
 	}

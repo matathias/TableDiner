@@ -17,8 +17,8 @@ namespace Table_Diner_Configurable
 
 		public void DoSettingsWindow(Rect inRect)
 		{
-			//wide panels look terrible
-			Rect lR = new Rect(inRect.x + 0.25f * inRect.width, inRect.y, inRect.width * 0.5f, inRect.height);
+            //wide panels look terrible
+            Rect lR = new Rect(inRect.x + 0.25f * inRect.width, inRect.y, inRect.width * 0.5f, inRect.height);
 			Listing_Standard list = new Listing_Standard();
 			list.ColumnWidth = lR.width;
 			list.Begin(lR);
