@@ -68,6 +68,7 @@ namespace Table_Diner_Configurable
 			Scribe_Values.Look(ref tableDistance, "tableSearchDistance", 60);
 			Scribe_Values.Look(ref overwriteNonDefault, "overwriteNonDefault", false);
 			Scribe_Values.Look(ref displayRing, "displayRing", true);
+            Scribe_Values.Look(ref useExtraFeatures, "useExtraFeatures", true);
 			tableDistanceUnapplied = tableDistance;
 			overwriteNonDefaultUnapplied = overwriteNonDefault;
 		}
