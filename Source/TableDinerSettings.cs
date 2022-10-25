@@ -11,9 +11,12 @@ namespace Table_Diner_Configurable
 		public bool overwriteNonDefault = false;
 		public bool displayRing = true;
 		public bool useExtraFeatures = true;
+		public float tableDefaultDistance = 0;
+		public float pawnDefaultDistance = 0;
 		//temporary settings since settings aren't applied immediately.
 		private float tableDistanceUnapplied = 60;
 		private bool overwriteNonDefaultUnapplied = false;
+
 
 		public void DoSettingsWindow(Rect inRect)
 		{
@@ -23,9 +26,34 @@ namespace Table_Diner_Configurable
 			list.ColumnWidth = lR.width;
 			list.Begin(lR);
 			list.Gap();
-			list.Label("TDiner.TableSearchDist".Translate());
-			list.Label(tableDistanceUnapplied.ToString());
+
+			list.Label(tableDistanceUnapplied.ToString() + " | " + "TDiner.TableSearchDist".Translate());
 			tableDistanceUnapplied = (int)list.Slider(tableDistanceUnapplied, 0, 400);
+
+			if (useExtraFeatures)
+            {
+				if (tableDefaultDistance == 0) GUI.color = new Color(0.7f, 1, 0.7f);
+				if (tableDefaultDistance == -1) GUI.color = Color.red;
+				if (tableDefaultDistance > tableDistance) GUI.color = Color.yellow;
+				list.Label(tableDefaultDistance.ToString() + " | " + "TDiner.TableDefault".Translate() + " | " + (tableDefaultDistance == -1 ? "TDiner.Disabled".Translate().ToString() : (tableDefaultDistance == 0 ? "TDiner.Ignored".Translate().ToString() : "")));
+				GUI.color = Color.white;
+				tableDefaultDistance = (int)list.Slider(tableDefaultDistance, -1, 400);
+
+				if (pawnDefaultDistance == 0) GUI.color = new Color(0.7f, 1, 0.7f);
+				if (pawnDefaultDistance == -1) GUI.color = Color.red;
+				if (pawnDefaultDistance > tableDistance) GUI.color = Color.yellow;
+				list.Label(pawnDefaultDistance.ToString() + " | " + "TDiner.PawnDefault".Translate() + " | " + (pawnDefaultDistance == -1 ? "TDiner.Disabled".Translate().ToString() : (pawnDefaultDistance == 0 ? "TDiner.Ignored".Translate().ToString() : "")));
+				GUI.color = Color.white;
+				pawnDefaultDistance = (int)list.Slider(pawnDefaultDistance, -1, 400);
+			}
+			else
+            {
+				list.Gap();
+				list.Gap();
+				list.Gap();
+				list.Gap();
+			}
+
 			if (list.ButtonTextLabeled("TDiner.VDefault".Translate(), "TDiner.Set".Translate()))
 			{
 				tableDistanceUnapplied = TableDiner.modInstance.chairSearchDefault;
@@ -69,6 +97,8 @@ namespace Table_Diner_Configurable
 			Scribe_Values.Look(ref overwriteNonDefault, "overwriteNonDefault", false);
 			Scribe_Values.Look(ref displayRing, "displayRing", true);
             Scribe_Values.Look(ref useExtraFeatures, "useExtraFeatures", true);
+			Scribe_Values.Look(ref tableDefaultDistance, "tableDefaultDistance", 0);
+			Scribe_Values.Look(ref pawnDefaultDistance, "tableDefaultDistance", 0);
 			tableDistanceUnapplied = tableDistance;
 			overwriteNonDefaultUnapplied = overwriteNonDefault;
 		}

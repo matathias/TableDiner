@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
   <TDiner.TableDiner>Table Diner</TDiner.TableDiner>
-  <TDiner.TableSearchDist>Table Search Distance:</TDiner.TableSearchDist>
+  <TDiner.TableSearchDist>Max Table Search Distance:</TDiner.TableSearchDist>
   <TDiner.overwriteNonDefault>Overwrite non-default search distances</TDiner.overwriteNonDefault>
   <TDiner.ApplyChanges>Apply Changes</TDiner.ApplyChanges>
   <TDiner.displayRing>Display range ring for tables</TDiner.displayRing>
@@ -12,6 +12,9 @@
   <TDiner.TabTable>Table</TDiner.TabTable>
   <TDiner.TRSlideLabel>Table Radius</TDiner.TRSlideLabel>
   <TDiner.ExtraFeatures>Enable Table and Pawn radius sliders</TDiner.ExtraFeatures>
-  <TDiner.Ignored>Ignored</TDiner.Ignored>
+  <TDiner.Ignored>Ignored, using default.</TDiner.Ignored>
   <TDiner.ExtraDisabled>Feature Disabled. Restart Rimworld to remove tab.</TDiner.ExtraDisabled>
+  <TDiner.Disabled>Table Search Disallowed</TDiner.Disabled>
+  <TDiner.TableDefault>Default table search distance</TDiner.TableDefault>
+  <TDiner.PawnDefault>Default pawn search distance</TDiner.PawnDefault>
 </LanguageData>

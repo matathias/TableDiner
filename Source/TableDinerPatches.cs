@@ -27,7 +27,12 @@ namespace Table_Diner_Configurable
 				//we draw a custom circle, because GenDraw.DrawRadiusRing is limited in it's radius.
 
 				float r = TableDinerGlobal.GetTableRadius(__instance.ThingID);
+				if (r < 0) return;
 				if (r < 1)
+				{
+					r = TableDiner.settings.tableDefaultDistance;
+				}
+				if (r == 0)
 				{
 					r = TableDiner.settings.tableDistance;
 				}
@@ -50,8 +55,10 @@ namespace Table_Diner_Configurable
 			ThingDef td = __instance.PlacingDef as ThingDef;
 			if (td != null && td.surfaceType == SurfaceType.Eat)
 			{
+				float tdist = TableDiner.settings.tableDefaultDistance;
+				if (tdist == 0) tdist = TableDiner.settings.tableDistance;
 				//we draw a custom circle, because GenDraw.DrawRadiusRing is limited in it's radius.
-				Graphics.DrawMesh(TableDiner.tableCircle, Matrix4x4.TRS(GenThing.TrueCenter(UI.MouseCell(), TableDiner.modInstance.lastRotation, td.size, 0) + Vector3.up * 10, Quaternion.identity, new Vector3(TableDiner.settings.tableDistance, TableDiner.settings.tableDistance, TableDiner.settings.tableDistance)), TableDinerGlobal.circleMaterialBP, 0);
+				Graphics.DrawMesh(TableDiner.tableCircle, Matrix4x4.TRS(GenThing.TrueCenter(UI.MouseCell(), TableDiner.modInstance.lastRotation, td.size, 0) + Vector3.up * 10, Quaternion.identity, new Vector3(tdist, tdist, tdist)), TableDinerGlobal.circleMaterialBP, 0);
 			}
 		}
 	}
@@ -135,16 +142,38 @@ namespace Table_Diner_Configurable
 				Rect tabRectBig = new Rect(10, size.y - (ITab_Table.WinSize.y) + 5, ITab_Table.WinSize.x - 20, ITab_Table.WinSize.y - 10);
 				float tr = TableDinerGlobal.GetTableRadius(SelPawn.ThingID);
 				GUI.color = Color.white;
-				if (tr > TableDiner.settings.tableDistance)
-				{
-					GUI.color = Color.yellow;
-				}
+				
 				if (Mouse.IsOver(tabRect))
 				{
 					Widgets.DrawHighlight(tabRectBig);
 					mOver = true;
 				}
-				TableDinerGlobal.tableRadii[SelPawn.ThingID] = Mathf.Pow(Widgets.HorizontalSlider(tabRect, Mathf.Sqrt(tr), 0, 23, true, tr < 1 ? "TDiner.Ignored".Translate().ToString() : Mathf.Round(tr).ToString(), "TDiner.TRSlideLabel".Translate()), 2);
+
+				if (tr == 0) GUI.color = new Color(0.7f, 1, 0.7f);
+				if (tr == -1) GUI.color = Color.red;
+				if (tr > TableDiner.settings.tableDistance) GUI.color = Color.yellow;
+
+				float trw = tr;
+				if (tr >= 1)
+				{
+					trw = Mathf.Sqrt(tr);
+				}
+				float trs = Widgets.HorizontalSlider(tabRect, trw, -1, 23, true, tr < 0 ? "TDiner.Disabled".Translate().ToString() : (tr < 1 ? "TDiner.Ignored".Translate().ToString() : Mathf.Round(tr).ToString()), "TDiner.TRSlideLabel".Translate());
+				if (trs >= 1)
+				{
+					TableDinerGlobal.tableRadii[SelPawn.ThingID] = Mathf.Pow(trs, 2);
+				}
+				else
+				{
+					if (trs < 0)
+					{
+						TableDinerGlobal.tableRadii[SelPawn.ThingID] = -1;
+					}
+					else
+					{
+						TableDinerGlobal.tableRadii[SelPawn.ThingID] = 0;
+					}
+				}
 				GUI.color = Color.white;
 			}
 		}
@@ -165,7 +194,12 @@ namespace Table_Diner_Configurable
 			if (SelPawn != null && SelPawn.IsColonist && FillTab.mOver)
 			{
 				float r = TableDinerGlobal.GetTableRadius(SelPawn.ThingID);
+				if (r < 0) return;
 				if (r < 1)
+                {
+					r = TableDiner.settings.pawnDefaultDistance;
+                }
+				if (r == 0)
 				{
 					r = TableDiner.settings.tableDistance;
 				}
@@ -233,6 +267,23 @@ namespace Table_Diner_Configurable
                             float tr = TableDinerGlobal.GetTableRadius(edifice.ThingID);
                             float pr = TableDinerGlobal.GetTableRadius(actor.ThingID);
 
+							if (0 <= tr && tr < 1)
+                            {
+								tr = TableDiner.settings.tableDefaultDistance;
+                            }
+							if (tr < 0)
+							{
+								return false;
+							}
+							if (0 <= pr && pr < 1)
+                            {
+								pr = TableDiner.settings.pawnDefaultDistance;
+                            }
+							if (pr < 0)
+                            {
+								return false;
+                            }
+
                             if (tr >= 1 || pr >= 1)
                             {
                                 float r2 = (edifice.TrueCenter() - actor.TrueCenter()).sqrMagnitude;
@@ -282,7 +333,7 @@ namespace Table_Diner_Configurable
                     {
                         thing = GenClosest.ClosestThingReachable(actor.Position, actor.Map, ThingRequest.ForGroup(ThingRequestGroup.BuildingArtificial), PathEndMode.OnCell, TraverseParms.For(actor), thing2.def.ingestible.chairSearchRadius, (Thing t) => baseChairValidator(t) && (int)t.Position.GetDangerFor(pawn, t.Map) <= (int)chewSpotDanger);
                     }
-                }
+				}
                 if (thing != null && !TryFindFreeSittingSpotOnThing(thing, out cell2))
                 {
                     Log.Error("Could not find sitting spot on chewing chair! This is not supposed to happen - we looked for a free spot in a previous check!");
@@ -309,4 +360,138 @@ namespace Table_Diner_Configurable
             return false;
 		}
 	}
+
+	public static class ReserveChewSpot
+    {
+		public static bool _Prefix(TargetIndex ingestibleInd, TargetIndex StoreToInd, ref Toil __result)
+        {
+			Toil toil = new Toil();
+			toil.initAction = delegate ()
+			{
+				Pawn actor = toil.actor;
+				IntVec3 intVec = IntVec3.Invalid;
+				Thing thing = null;
+				Thing thing2 = actor.CurJob.GetTarget(ingestibleInd).Thing;
+				bool baseChairValidator(Thing t)
+				{
+					if (t.def.building == null || !t.def.building.isSittable)
+					{
+						return false;
+					}
+					if (t.IsForbidden(actor))
+					{
+						return false;
+					}
+					if (!actor.CanReserve(t, 1, -1, null, false))
+					{
+						return false;
+					}
+					if (!t.IsSociallyProper(actor))
+					{
+						return false;
+					}
+					if (t.IsBurning())
+					{
+						return false;
+					}
+					if (t.HostileTo(actor))
+					{
+						return false;
+					}
+					bool flag = false;
+					for (int i = 0; i < 4; i++)
+					{
+						IntVec3 c = t.Position + GenAdj.CardinalDirections[i];
+						Building edifice = c.GetEdifice(t.Map);
+						if (edifice != null && edifice.def.surfaceType == SurfaceType.Eat)
+						{
+							float tr = TableDinerGlobal.GetTableRadius(edifice.ThingID);
+							float pr = TableDinerGlobal.GetTableRadius(actor.ThingID);
+
+							if (0 <= tr && tr < 1)
+							{
+								tr = TableDiner.settings.tableDefaultDistance;
+							}
+							if (tr < 0)
+							{
+								return false;
+							}
+							if (0 <= pr && pr < 1)
+							{
+								pr = TableDiner.settings.pawnDefaultDistance;
+							}
+							if (pr < 0)
+							{
+								return false;
+							}
+
+							if (tr >= 1 || pr >= 1)
+							{
+								float r2 = (edifice.TrueCenter() - actor.TrueCenter()).sqrMagnitude;
+								if (tr < 1)
+								{
+									if (r2 <= Mathf.Pow(pr, 2))
+									{
+										flag = true;
+										break;
+									}
+								}
+								else if (pr < 1)
+								{
+									if (r2 <= Mathf.Pow(tr, 2))
+									{
+										flag = true;
+										break;
+									}
+								}
+								else
+								{
+									if (r2 <= Mathf.Pow(Mathf.Min(tr, pr), 2))
+									{
+										flag = true;
+										break;
+									}
+								}
+							}
+							else
+							{
+								flag = true;
+								break;
+							}
+						}
+					}
+					return flag ? true : false;
+				}
+
+				if (thing2.def.ingestible.chairSearchRadius > 0f)
+				{
+					thing = GenClosest.ClosestThingReachable(actor.Position, actor.Map, ThingRequest.ForGroup(ThingRequestGroup.BuildingArtificial), PathEndMode.OnCell, TraverseParms.For(actor, Danger.Deadly, TraverseMode.ByPawn, false), thing2.def.ingestible.chairSearchRadius, (Thing t) => baseChairValidator(t) && t.Position.GetDangerFor(actor, t.Map) == Danger.None, null, 0, -1, false, RegionType.Set_Passable, false);
+				}
+				if (thing == null)
+				{
+					intVec = RCellFinder.SpotToChewStandingNear(actor, actor.CurJob.GetTarget(ingestibleInd).Thing);
+					Danger chewSpotDanger = intVec.GetDangerFor(actor, actor.Map);
+					if (chewSpotDanger != Danger.None)
+					{
+						thing = GenClosest.ClosestThingReachable(actor.Position, actor.Map, ThingRequest.ForGroup(ThingRequestGroup.BuildingArtificial), PathEndMode.OnCell, TraverseParms.For(actor, Danger.Deadly, TraverseMode.ByPawn, false), thing2.def.ingestible.chairSearchRadius, (Thing t) => baseChairValidator(t) && t.Position.GetDangerFor(actor, t.Map) <= chewSpotDanger, null, 0, -1, false, RegionType.Set_Passable, false);
+					}
+				}
+				if (thing == null)
+				{
+					actor.Map.pawnDestinationReservationManager.Reserve(actor, actor.CurJob, intVec);
+					actor.CurJob.SetTarget(StoreToInd, intVec);
+				}
+				else
+				{
+					intVec = thing.Position;
+					actor.Reserve(thing, actor.CurJob, 1, -1, null, true);
+					actor.Map.pawnDestinationReservationManager.Reserve(actor, actor.CurJob, intVec);
+					actor.CurJob.SetTarget(StoreToInd, thing);
+				}
+			};
+			toil.defaultCompleteMode = ToilCompleteMode.Instant;
+			__result = toil;
+			return false;
+        }
+    }
 }

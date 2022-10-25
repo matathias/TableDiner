@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 using HarmonyLib;
@@ -29,6 +30,8 @@ namespace Table_Diner_Configurable
 
 			tableRadii = new Dictionary<string, float>();
 
+			PatchCommonSense(harmony);
+
 			TableDiner.modInstance.Init();
 		}
 
@@ -40,5 +43,21 @@ namespace Table_Diner_Configurable
 			}
 			return tableRadii[thingID];
 		}
+
+		private static void PatchCommonSense(Harmony harmony)
+        {
+			try
+            {
+				((Action)(() =>
+				{
+					harmony.Patch(typeof(CommonSense.JobDriver_PrepareToIngestToils_ToolUser_CommonSensePatch).GetMethod("reserveChewSpot"), new HarmonyMethod(typeof(ReserveChewSpot).GetMethod("_Prefix")));
+					Log.Message("Table Diner patched Common Sense");
+				}))();
+            }
+			catch (Exception)
+            {
+				Log.Message("Table Diner did not find Common Sense.");
+            }
+        }
 	}
 }
