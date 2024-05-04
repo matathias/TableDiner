@@ -99,7 +99,7 @@ namespace Table_Diner_Configurable
 							typeof(ITab_Table),
 							": ",
 							ex
-							}), false);
+							}));
 						}
 					}
 				}

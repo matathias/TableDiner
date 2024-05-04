@@ -50,7 +50,7 @@ namespace Table_Diner_Configurable
             {
 				((Action)(() =>
 				{
-					harmony.Patch(typeof(CommonSense.JobDriver_PrepareToIngestToils_ToolUser_CommonSensePatch).GetMethod("reserveChewSpot"), new HarmonyMethod(typeof(ReserveChewSpot).GetMethod("_Prefix")));
+					harmony.Patch(AccessTools.TypeByName("CommonSense.JobDriver_PrepareToIngestToils_ToolUser_CommonSensePatch").GetMethod("reserveChewSpot"), new HarmonyMethod(typeof(ReserveChewSpot).GetMethod("_Prefix")));
 					Log.Message("Table Diner patched Common Sense");
 				}))();
             }
@@ -58,6 +58,7 @@ namespace Table_Diner_Configurable
             {
 				Log.Message("Table Diner did not find Common Sense.");
             }
+			
         }
 	}
 }
