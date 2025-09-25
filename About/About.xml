@@ -19,17 +19,12 @@
         <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
         <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
     </li>
-    <li>
-        <packageId>avilmask.CommonSense</packageId>
-        <displayName>Common Sense</displayName>
-        <steamWorkshopUrl>steam://url/CommunityFilePage/1561769193</steamWorkshopUrl>
-    </li>
 	</modDependencies>
 	<loadAfter>
 		<li>avilmask.CommonSense</li>
 	</loadAfter>
 	<description>A mod which adds options to control table eating distances.
 	
-	Version 1.39
+	Updated for Rimworld 1.6.
 	</description>
 </ModMetaData>
