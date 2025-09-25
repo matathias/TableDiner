@@ -365,7 +365,11 @@ namespace Table_Diner_Configurable
     {
 		public static bool _Prefix(TargetIndex ingestibleInd, TargetIndex StoreToInd, ref Toil __result)
         {
-			Toil toil = new Toil();
+            if (!TableDiner.settings.useExtraFeatures)
+            {
+                return true;
+            }
+            Toil toil = new Toil();
 			toil.initAction = delegate ()
 			{
 				Pawn actor = toil.actor;
