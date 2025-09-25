@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <TDiner.TableDiner>Table Diner</TDiner.TableDiner>
+  <TDiner.TableSearchDist>Максимальная дистанция поиска стола:</TDiner.TableSearchDist>
+  <TDiner.overwriteNonDefault>Переопределить нестандартные дистанции поиска</TDiner.overwriteNonDefault>
+  <TDiner.ApplyChanges>Применить изменения</TDiner.ApplyChanges>
+  <TDiner.displayRing>Отображать границу дистанции для столов</TDiner.displayRing>
+  <TDiner.RadiusNote>Внимание: отображаемый радиус является примерным. При поиске места для приёма пищи пешки ищут стулья, а не столы, что может вызвать разницу в несколько тайлов</TDiner.RadiusNote>
+  <TDiner.VDefault>Задать стандартное значение RimWorld</TDiner.VDefault>
+  <TDiner.TDDefault>Задать стандартное значение Table Diner</TDiner.TDDefault>
+  <TDiner.Set>Задать</TDiner.Set>
+  <TDiner.TabTable>Стол</TDiner.TabTable>
+  <TDiner.TRSlideLabel>Радиус действия стола</TDiner.TRSlideLabel>
+  <TDiner.ExtraFeatures>Включить слайдеры радиуса стола и пешки</TDiner.ExtraFeatures>
+  <TDiner.Ignored>Используется стандартное</TDiner.Ignored>
+  <TDiner.ExtraDisabled>Функция отключена. Перезапустите RimWorld, чтобы скрыть вкладку</TDiner.ExtraDisabled>
+  <TDiner.Disabled>Поиск стола запрещён</TDiner.Disabled>
+  <TDiner.TableDefault>Стандартная дистанция работы стола</TDiner.TableDefault>
+  <TDiner.PawnDefault>Стандартная дистанция поиска стола пешкой</TDiner.PawnDefault>
+</LanguageData>
