@@ -98,7 +98,7 @@ namespace Table_Diner_Configurable
 			Scribe_Values.Look(ref displayRing, "displayRing", true);
             Scribe_Values.Look(ref useExtraFeatures, "useExtraFeatures", true);
 			Scribe_Values.Look(ref tableDefaultDistance, "tableDefaultDistance", 0);
-			Scribe_Values.Look(ref pawnDefaultDistance, "tableDefaultDistance", 0);
+			Scribe_Values.Look(ref pawnDefaultDistance, "pawnDefaultDistance", 0);
 			tableDistanceUnapplied = tableDistance;
 			overwriteNonDefaultUnapplied = overwriteNonDefault;
 		}
