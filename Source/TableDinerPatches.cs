@@ -134,6 +134,7 @@ namespace Table_Diner_Configurable
 		{
 			if (Find.CurrentMap == null) return;
 			if (!TableDiner.settings.useExtraFeatures) return;
+			if (!TableDiner.settings.showPawnSlider) return;
 			Pawn SelPawn = Find.Selector.SingleSelectedThing as Pawn;
 			if (SelPawn != null && SelPawn.IsColonist)
 			{

@@ -11,6 +11,7 @@ namespace Table_Diner_Configurable
 		public bool overwriteNonDefault = false;
 		public bool displayRing = true;
 		public bool useExtraFeatures = true;
+		public bool showPawnSlider = true;
 		public float tableDefaultDistance = 0;
 		public float pawnDefaultDistance = 0;
 		//temporary settings since settings aren't applied immediately.
@@ -85,6 +86,7 @@ namespace Table_Diner_Configurable
 			}
 			list.CheckboxLabeled("TDiner.displayRing".Translate(), ref displayRing);
 			list.CheckboxLabeled("TDiner.ExtraFeatures".Translate(), ref useExtraFeatures);
+			list.CheckboxLabeled("TDiner.PawnSlider".Translate(), ref showPawnSlider);
 			list.Label("TDiner.RadiusNote".Translate());
 			list.End();
 		}
@@ -97,6 +99,7 @@ namespace Table_Diner_Configurable
 			Scribe_Values.Look(ref overwriteNonDefault, "overwriteNonDefault", false);
 			Scribe_Values.Look(ref displayRing, "displayRing", true);
             Scribe_Values.Look(ref useExtraFeatures, "useExtraFeatures", true);
+			Scribe_Values.Look(ref showPawnSlider, "showPawnSlider", true);
 			Scribe_Values.Look(ref tableDefaultDistance, "tableDefaultDistance", 0);
 			Scribe_Values.Look(ref pawnDefaultDistance, "pawnDefaultDistance", 0);
 			tableDistanceUnapplied = tableDistance;

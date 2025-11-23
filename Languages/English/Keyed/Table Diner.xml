@@ -11,7 +11,8 @@
   <TDiner.Set>Set</TDiner.Set>
   <TDiner.TabTable>Table</TDiner.TabTable>
   <TDiner.TRSlideLabel>Table Radius</TDiner.TRSlideLabel>
-  <TDiner.ExtraFeatures>Enable Table and Pawn radius sliders</TDiner.ExtraFeatures>
+  <TDiner.ExtraFeatures>Enable Table and Pawn radius management</TDiner.ExtraFeatures>
+  <TDiner.PawnSlider>Enable the radius slider for Pawns</TDiner.PawnSlider>
   <TDiner.Ignored>Ignored, using default.</TDiner.Ignored>
   <TDiner.ExtraDisabled>Feature Disabled. Restart Rimworld to remove tab.</TDiner.ExtraDisabled>
   <TDiner.Disabled>Table Search Disallowed</TDiner.Disabled>
